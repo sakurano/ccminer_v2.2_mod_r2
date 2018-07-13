@@ -625,7 +625,7 @@ void lyra2v2_cpu_hash_32(int thr_id, uint32_t threads, uint32_t startNounce, uin
 	int dev_id = device_map[thr_id % MAX_GPUS];
 
 	uint32_t tpb = TPB52;
-
+  cudaFuncSetAttribute(lyra2v2_gpu_hash_32_2, cudaFuncAttributePreferredSharedMemoryCarveout, 100);
 	if (cuda_arch[dev_id] > 500) tpb = TPB52;
 	else if (cuda_arch[dev_id] == 500) tpb = TPB50;
 	else if (cuda_arch[dev_id] >= 300) tpb = TPB30;
